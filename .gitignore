@@ -130,5 +130,5 @@ dmypy.json
 
 # Test files
 *.jpg
-*.mp4
 *.mp3
+*.mp4
