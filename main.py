@@ -1,5 +1,5 @@
 # import ffmpeg
-from os.path import exists
+from os.path import basename, dirname, exists
 from os import mkdir
 from pytube import Playlist, YouTube
 from re import sub
@@ -7,10 +7,13 @@ from sys import argv
 from wget import download
 
 
+def complete(stream, file_path):
+    print()
+
+
 def progress(chunk, file_handle, bytes_remaining):
     contentSize = video.filesize
     size = contentSize - bytes_remaining
-
     print('\r' + '[Download progress]:[%s%s]%.2f%%;' % ('█' * int(size*20/contentSize), ' '*(20-int(size*20/contentSize)), float(size/contentSize*100)), end='')
 
 
@@ -21,7 +24,11 @@ if __name__ == "__main__":
         target = p.title
         for movies in p.video_urls:
             url = movies
-            yt = YouTube(url, on_progress_callback=progress)
+            yt = YouTube(
+                url,
+                on_progress_callback=progress,
+                # on_complete_callback=complete,
+            )
             video = yt.streams.get_highest_resolution()
             thumbnail = yt.thumbnail_url
             img_name = sub(r'[\/?:*"><|]', "", yt.title)
@@ -46,7 +53,11 @@ if __name__ == "__main__":
         # Init
         target = "UnknowCategory"
         url = argv[2]
-        yt = YouTube(url, on_progress_callback=progress)
+        yt = YouTube(
+            url,
+            on_progress_callback=progress,
+            # on_complete_callback=complete,
+        )
         video = yt.streams.get_highest_resolution()
         thumbnail = yt.thumbnail_url
         img_name = sub(r'[\/?:*"><|]', "", yt.title)
