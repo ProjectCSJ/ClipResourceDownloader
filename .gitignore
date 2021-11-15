@@ -129,5 +129,6 @@ dmypy.json
 .pyre/
 
 # Test files
-*.mp4
 *.jpg
+*.mp4
+*.mp3
