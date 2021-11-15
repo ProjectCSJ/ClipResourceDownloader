@@ -20,9 +20,9 @@ def progress(chunk, file_handle, bytes_remaining):
 if __name__ == "__main__":
     if argv[1] == "playlist":
         # Init
-        p = Playlist(f'{argv[2]}')
-        target = p.title
-        for movies in p.video_urls:
+        list = Playlist(f'{argv[2]}')
+        target = list.title
+        for movies in list.video_urls:
             url = movies
             yt = YouTube(
                 url,
