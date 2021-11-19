@@ -8,3 +8,7 @@
 ## Warning
 In now only can download `720p` video  
 We still testing `1080p` & `4K`
+
+## Todo
+- [ ] Modular
+- [ ] Full HD support
