@@ -21,6 +21,9 @@ if __name__ == "__main__":
     if argv[1] == "playlist":
         # Init
         list = Playlist(f'{argv[2]}')
+        channel = list.owner
+        if not exists(f'./{channel}'):
+            mkdir(channel)
         target = list.title
         for movies in list.video_urls:
             url = movies
@@ -39,11 +42,11 @@ if __name__ == "__main__":
             # Download
             try:
                 print(f"Downloading {yt.title}...", end='\n')
-                video.download(f'./{target}/video')
+                video.download(f'./{channel}/{target}/video')
                 print("")
-                if not exists(f'{target}/image'):
-                    mkdir(f'{target}/image')
-                download(thumbnail, f'./{target}/image/{img_name}.jpg')
+                if not exists(f'{channel}/{target}/image'):
+                    mkdir(f'{channel}/{target}/image')
+                download(thumbnail, f'./{channel}/{target}/image/{img_name}.jpg')
             except:
                 print(f'\n{yt.title} download failed!', end='\n')
             else:
