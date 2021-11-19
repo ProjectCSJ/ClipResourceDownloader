@@ -21,7 +21,7 @@ if __name__ == "__main__":
     if argv[1] == "playlist":
         # Init
         list = Playlist(f'{argv[2]}')
-        channel = list.owner
+        channel = sub(r'[\/?:*"><|]', "", list.owner)
         if not exists(f'./{channel}'):
             mkdir(channel)
         target = list.title
@@ -61,6 +61,7 @@ if __name__ == "__main__":
             on_progress_callback=progress,
             # on_complete_callback=complete,
         )
+        channel = sub(r'[\/?:*"><|]', "", yt.author)
         video = yt.streams.get_highest_resolution()
         thumbnail = yt.thumbnail_url
         img_name = sub(r'[\/?:*"><|]', "", yt.title)
@@ -71,11 +72,11 @@ if __name__ == "__main__":
         # Download
         try:
             print(f"Downloading {yt.title}...", end='\n')
-            video.download(f'./{target}/video')
+            video.download(f'./{target}/{channel}/video')
             print("")
-            if not exists(f'{target}/image'):
-                mkdir(f'{target}/image')
-            download(thumbnail, f'./{target}/image/{img_name}.jpg')
+            if not exists(f'{target}/{channel}/image'):
+                mkdir(f'{target}/{channel}/image')
+            download(thumbnail, f'./{target}/{channel}/image/{img_name}.jpg')
         except:
             print(f'\n{yt.title} download failed!', end='\n')
         else:
