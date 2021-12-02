@@ -5,7 +5,8 @@ from pytube import Playlist, YouTube
 from re import sub
 from sys import argv
 from wget import download
-
+import GUI as win
+win.ui()
 
 def complete(stream, file_path):
     print()
