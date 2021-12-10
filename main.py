@@ -1,86 +1,33 @@
-# import ffmpeg
-from os.path import basename, dirname, exists
-from os import mkdir
-from pytube import Playlist, YouTube
-from re import sub
-from sys import argv
-from wget import download
-import GUI as win
-win.ui()
+import pyglet as pg
+from tkinter import Tk, Label, Button
+import core
+from core_GUI import ui
 
-def complete(stream, file_path):
-    print()
+fontname = "内海フォントJP--Regular"
+pg.font.add_file("NKF.TTF")
 
 
-def progress(chunk, file_handle, bytes_remaining):
-    contentSize = video.filesize
-    size = contentSize - bytes_remaining
-    print('\r' + '[Download progress]:[%s%s]%.2f%%;' % ('█' * int(size * 20 / contentSize),
-          ' ' * (20 - int(size * 20 / contentSize)), float(size / contentSize * 100)), end='')
+select = Tk()
+select.title("Mode Select")
+select.configure(bg="#64aaf0")
+select.geometry("400x400")
+def GUI_open():
+    select.deiconify()
+    ui()
+    select.destroy()
+def CLI_open():
+    select.deiconify()
+    core.download_cli()
 
-
-if __name__ == "__main__":
-    if argv[1] == "playlist":
-        # Init
-        list = Playlist(f'{argv[2]}')
-        channel = sub(r'[\/?:*"><|]', "", list.owner)
-        if not exists(f'./{channel}'):
-            mkdir(channel)
-        target = list.title
-        for movies in list.video_urls:
-            url = movies
-            yt = YouTube(
-                url,
-                on_progress_callback=progress,
-                # on_complete_callback=complete,
-            )
-            video = yt.streams.get_highest_resolution()
-            thumbnail = yt.thumbnail_url
-            img_name = sub(r'[\/?:*"><|]', "", yt.title)
-
-            # file_size
-            file_size = video.filesize
-
-            # Download
-            try:
-                print(f"Downloading {yt.title}...", end='\n')
-                video.download(f'./{channel}/{target}/video')
-                print("")
-                if not exists(f'{channel}/{target}/image'):
-                    mkdir(f'{channel}/{target}/image')
-                download(
-                    thumbnail, f'./{channel}/{target}/image/{img_name}.jpg')
-            except:
-                print(f'\n{yt.title} download failed!', end='\n')
-            else:
-                print(f'\n{yt.title} download complete.', end='\n')
-
-    elif argv[1] == "video":
-        # Init
-        target = "UnknowCategory"
-        url = argv[2]
-        yt = YouTube(
-            url,
-            on_progress_callback=progress,
-            # on_complete_callback=complete,
-        )
-        channel = sub(r'[\/?:*"><|]', "", yt.author)
-        video = yt.streams.get_highest_resolution()
-        thumbnail = yt.thumbnail_url
-        img_name = sub(r'[\/?:*"><|]', "", yt.title)
-
-        # file_size
-        file_size = video.filesize
-
-        # Download
-        try:
-            print(f"Downloading {yt.title}...", end='\n')
-            video.download(f'./{target}/{channel}/video')
-            print("")
-            if not exists(f'{target}/{channel}/image'):
-                mkdir(f'{target}/{channel}/image')
-            download(thumbnail, f'./{target}/{channel}/image/{img_name}.jpg')
-        except:
-            print(f'\n{yt.title} download failed!', end='\n')
-        else:
-            print(f'\n{yt.title} download complete.', end='\n')
+def startup():
+    label_usage = Label(select,text="Please select what UI do you want to use.", font=(
+        fontname, 12), bg="#64aaf0")
+    label_usage.pack()
+    GUI=Button(select,text="GUI",bg="#64aaf0",font=(fontname, 20),command=lambda :GUI_open())
+    GUI.place(x=70,y=350)
+    CLI=Button(select,text="CLI",bg="#64aaf0",font=(fontname, 20),command=lambda :CLI_open())
+    CLI.place(x=155,y=350)
+    EXIT=Button(select,text="EXIT",bg="#64aaf0",font=(fontname, 20),command=select.destroy)
+    EXIT.place(x=240,y=350)
+    select.mainloop()
+startup()
