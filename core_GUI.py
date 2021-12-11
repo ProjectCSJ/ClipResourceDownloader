@@ -2,7 +2,7 @@
 # Init
 # =============================================================================
 import pyglet as pg
-from tkinter import ttk, Tk, Button, Entry, Label, messagebox
+from tkinter import ttk, Tk, Button, Entry, Label
 import core
 fontname = "内海フォントJP--Regular"
 pg.font.add_file("NKF.TTF")
@@ -31,7 +31,8 @@ def ui():
     url = Entry(win, font=(fontname, 30))
     start = Button(win, text="start", bg="#64aaf0", font=(
         fontname, 20), command=lambda: click_download())
-    stop = Button(win, text="EXIT", bg="#64aaf0", font=(fontname, 20),command=win.destroy)
+    stop = Button(win, text="EXIT", bg="#64aaf0",
+                  font=(fontname, 20), command=win.destroy)
     don_t_do = Label(
         win, text="Do NOT download MEMBERS-ONLY video.", font=(fontname, 17), fg="red", bg="#64aaf0")
     # 排版
@@ -44,5 +45,4 @@ def ui():
     win.mainloop()
 
 
-ui()
 url, mode = None, None

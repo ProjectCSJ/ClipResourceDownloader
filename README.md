@@ -10,8 +10,8 @@
 ## Warning
 In now only can download `720p` video  
 We still testing `1080p` & `4K`
-And the knows bug is the window will be pop up in the wrong time
 
+## Knows Bug
 ## Todo
 - [x] Modular
 - [ ] Full HD support
