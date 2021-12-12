@@ -10,7 +10,7 @@ pg.font.add_file("NKF.TTF")
 select = Tk()
 select.title("Mode Select")
 select.configure(bg="#64aaf0")
-select.geometry("400x400")
+select.geometry("400x300")
 
 
 def GUI_open():
@@ -31,13 +31,13 @@ def startup():
     label_usage.pack()
     GUI = Button(select, text="GUI", bg="#64aaf0", font=(
         fontname, 20), command=lambda: GUI_open())
-    GUI.place(x=70, y=350)
+    GUI.place(x=70, y=250)
     CLI = Button(select, text="CLI", bg="#64aaf0", font=(
         fontname, 20), command=lambda: CLI_open())
-    CLI.place(x=155, y=350)
+    CLI.place(x=155, y=250)
     EXIT = Button(select, text="EXIT", bg="#64aaf0",
                   font=(fontname, 20), command=select.destroy)
-    EXIT.place(x=240, y=350)
+    EXIT.place(x=240, y=250)
     select.mainloop()
 
 
